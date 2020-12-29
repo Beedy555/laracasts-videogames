@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laracasts Video Games</title>
     <link rel="stylesheet" href="/css/app.css">
+    <livewire:styles />
 </head>
 <body class="bg-gray-900 text-white">
 <header class="border-b border-gray-800">
@@ -41,8 +42,9 @@
 </main>
 <footer class="border-t border-gray-800">
     <div class="container mx-auto px-4 py-6">
-        
+
     </div>
 </footer>
+<livewire:scripts />
 </body>
 </html>

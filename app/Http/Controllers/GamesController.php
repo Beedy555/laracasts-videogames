@@ -15,55 +15,7 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $current = Carbon::now()->timestamp;
-        $before = Carbon::now()->subMonths(2)->timestamp;
-        $beforeTwoWeeks = Carbon::now()->subWeeks(3)->timestamp;
-        $after = Carbon::now()->addMonths(2)->timestamp;
-        $afterFourMonths = Carbon::now()->addMonths(4)->timestamp;
-
-        $popularGames = Http::withHeaders(config('services.igdb.headers'))
-            ->withBody(
-                "fields name, cover.url,first_release_date, platforms.abbreviation, total_rating, rating, slug;
-        where platforms = (48, 49, 130, 6)
-        & (first_release_date >= {$before}
-        & first_release_date < {$after}
-        & total_rating > 70);
-        sort total_rating_count desc; limit 12;", 'text/plain'
-            )->post('https://api.igdb.com/v4/games/')->json();
-
-        $recentlyReviewed = Http::withHeaders(config('services.igdb.headers'))
-            ->withBody(
-                "fields name, cover.url,first_release_date, platforms.abbreviation, total_rating_count, summary, rating, slug;
-        where platforms = (48, 49, 130, 6)
-        & (first_release_date >= {$beforeTwoWeeks}
-        & first_release_date < {$current}
-        & total_rating_count > 5);
-        sort total_rating_count desc; limit 3;", 'text/plain'
-            )->post('https://api.igdb.com/v4/games/')->json();
-
-        $mostAnticipated = Http::withHeaders(config('services.igdb.headers'))
-            ->withBody(
-                "fields name, cover.url,first_release_date, platforms.abbreviation, total_rating, summary, slug;
-        where platforms = (48, 49, 130, 6)
-        & (first_release_date > {$current}
-        & first_release_date < {$afterFourMonths});
-        sort total_rating desc; limit 4;", 'text/plain'
-            )->post('https://api.igdb.com/v4/games/')->json();
-
-        $comingSoon = Http::withHeaders(config('services.igdb.headers'))
-            ->withBody(
-                "fields name, first_release_date, platforms.abbreviation, summary, rating, slug;
-        where platforms = (48, 49, 130, 6)
-        & (first_release_date > {$current});
-        sort first_release_date desc; limit 4;", 'text/plain'
-            )->post('https://api.igdb.com/v4/games/')->json();
-
-        return view('index',
-            [   'popularGames' => $popularGames,
-                'recentlyReviewed' => $recentlyReviewed,
-                'mostAnticipated' => $mostAnticipated,
-                'comingSoon' => $comingSoon,
-            ]);
+        return view('index');
     }
 
     /**
