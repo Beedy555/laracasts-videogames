@@ -5,7 +5,11 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+        spacing: {
+            '44': '11rem',
+        }
+    },
   },
   variants: {},
   plugins: [],
