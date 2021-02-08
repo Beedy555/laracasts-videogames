@@ -39,7 +39,7 @@
                     <div class="flex items-center ml-12">
                         <div class="w-16 h-16 bg-gray-800 rounded-full">
                             <div class="font-semibold text-xs flex justify-center items-center h-full">
-                                @if(array_key_exists('rating', $game))
+                                @if(array_key_exists('aggregated_rating', $game))
                                     {{ round($game['aggregated_rating']).'%' }}
                                 @else
                                     0%
