@@ -73,8 +73,8 @@ class GamesController extends Controller
             'genres' => collect($game['genres'])->pluck('name')->implode(', '),
             'involvedCompanies' => $game['involved_companies'][0]['company']['name'],
             'platforms' => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
-            'memberRating' => array_key_exists('rating', $game) ? round($game['rating']) . '%' : '0%',
-            'criticRating' => array_key_exists('aggregated_rating', $game) ? round($game['aggregated_rating']) . '%' : '0%',
+            'memberRating' => array_key_exists('rating', $game) ? round($game['rating']) : '0',
+            'criticRating' => array_key_exists('aggregated_rating', $game) ? round($game['aggregated_rating']) : '0',
             'trailer' => 'https://www.youtube.com/watch/' . $game['videos'][0]['video_id'],
             'screenshots' => collect($game['screenshots'])->map(function ($screenshot) {
                 return [
@@ -87,7 +87,7 @@ class GamesController extends Controller
                     'coverImageUrl' => array_key_exists('cover', $game)
                         ? Str::replaceFirst('thumb', 'screenshot_big', $game['cover']['url'])
                         : 'https://via.placeholder.com/264x362',
-                    'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null,
+                    'rating' => isset($game['rating']) ? round($game['rating']) : null,
                     'platforms' => array_key_exists('rating', $game) ?
                         collect($game['platforms'])->pluck('abbreviation')->implode(', ') : null
                 ]);
